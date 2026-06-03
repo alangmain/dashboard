@@ -125,14 +125,19 @@ async function loadBBCWeather() {
         document.getElementById("bbc-header-temp").innerText = temp;
         document.getElementById("bbc-header-desc").innerText = weather;
 
-        const iconMap = {
-            "Sunny": "https://icons.wxug.com/i/c/v4/clear.svg",
-            "Clear": "https://icons.wxug.com/i/c/v4/clear.svg",
-            "Cloudy": "https://icons.wxug.com/i/c/v4/cloudy.svg",
-            "Partly cloudy": "https://icons.wxug.com/i/c/v4/partlycloudy.svg",
-            "Light rain": "https://icons.wxug.com/i/c/v4/chancerain.svg",
-            "Heavy rain": "https://icons.wxug.com/i/c/v4/rain.svg"
-        };
+const iconMap = {
+    "Sunny": "https://openweathermap.org/img/wn/01d.png",
+    "Clear": "https://openweathermap.org/img/wn/01d.png",
+    "Cloudy": "https://openweathermap.org/img/wn/03d.png",
+    "Partly cloudy": "https://openweathermap.org/img/wn/02d.png",
+    "Light rain": "https://openweathermap.org/img/wn/10d.png",
+    "Heavy rain": "https://openweathermap.org/img/wn/09d.png",
+    "Light snow": "https://openweathermap.org/img/wn/13d.png",
+    "Heavy snow": "https://openweathermap.org/img/wn/13d.png",
+    "Fog": "https://openweathermap.org/img/wn/50d.png",
+    "Mist": "https://openweathermap.org/img/wn/50d.png"
+};
+
 
         document.getElementById("bbc-header-icon").src =
             iconMap[weather] || iconMap["Cloudy"];
