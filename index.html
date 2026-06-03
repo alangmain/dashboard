@@ -40,14 +40,13 @@
         overflow: visible;
     }
 
-    /* Wrapper FIX — stabilises iframe height */
     .weather-wrapper {
         width: 100%;
         min-height: 110px;
         display: block;
     }
 
-    /* GRID */
+    /* MAIN GRID */
     .grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -64,6 +63,7 @@
         position: relative;
         transition: 0.15s;
         user-select: none;
+        cursor: pointer;
     }
 
     .button:active {
@@ -78,23 +78,32 @@
         pointer-events: none;
     }
 
-    /* FOOTER TILE (BBC News) */
-    .footer-tile {
-        margin: 0 30px 30px 30px;
-        height: 120px;
-        background: #1B3A5A;
-        border-radius: 20px;
-        overflow: hidden;
-        cursor: pointer;
-        transition: 0.15s;
+    /* FOOTER GRID (half-height tiles) */
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+        padding: 0 30px 30px 30px;
     }
 
-    .footer-tile:active {
+    .footer-button {
+        padding: 0;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #1B3A5A;
+        height: 90px; /* HALF HEIGHT */
+        position: relative;
+        transition: 0.15s;
+        user-select: none;
+        cursor: pointer;
+    }
+
+    .footer-button:active {
         transform: scale(0.95);
         filter: brightness(1.2);
     }
 
-    .footer-tile img {
+    .footer-button img {
         width: 100%;
         height: 100%;
         object-fit: cover;
@@ -112,7 +121,7 @@ function trigger(webhook, value) {
 </head>
 <body>
 
-<!-- HEADER WITH WEATHER WIDGET -->
+<!-- HEADER -->
 <div class="header">
     <div class="header-title">Control Panel</div>
 
@@ -121,7 +130,7 @@ function trigger(webhook, value) {
             <a class="weatherwidget-io"
                href="https://forecast7.com/en/57d48n4d22/inverness/"
                data-label_1="INVERNESS"
-               data-label_2=""
+               data-label_2="WEATHER"
                data-basecolor="#102A45"
                data-textcolor="#FFFFFF"
                data-highcolor="#FFCC00"
@@ -153,16 +162,21 @@ function trigger(webhook, value) {
         <img src="Absolute_Radio.png">
     </div>
 
-    <!-- SPOTIFY BUTTON -->
+    <!-- SPOTIFY BUTTON (now using Spotify.jpg) -->
     <div class="button" onclick="window.location.href='spotify://'">
         <img src="Spotify.jpg">
     </div>
 
 </div>
 
-<!-- BBC NEWS TILE -->
-<div class="footer-tile" onclick="window.location.href='https://www.bbc.co.uk/news'">
-    <img src="bbc_news.png">
+<!-- FOOTER GRID (half-height tiles) -->
+<div class="footer-grid">
+
+    <div class="footer-button" onclick="window.location.href='https://www.bbc.co.uk/news'">
+        <img src="BBC_News.png">
+    </div>
+
+    <!-- Add more footer tiles here if you want -->
 </div>
 
 <!-- WeatherWidget.io script -->
