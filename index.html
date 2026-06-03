@@ -93,6 +93,12 @@ function trigger(webhook, value) {
     fetch("https://maker.ifttt.com/trigger/" + webhook + "/with/key/YOUR_IFTTT_KEY?value1=" + value);
 }
 
+    function decodeHTML(html) {
+    const txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+}
+    
 async function loadBBCWeather() {
     const proxy = "https://corsproxy.io/?";
     const feed = "https://weather-broker-cdn.api.bbci.co.uk/en/observation/rss/2655009";
@@ -104,7 +110,9 @@ async function loadBBCWeather() {
         const parser = new DOMParser();
         const xml = parser.parseFromString(text, "text/xml");
 
-        const descHTML = xml.querySelector("item description").textContent;
+        let descHTML = xml.querySelector("item description").textContent;
+descHTML = decodeHTML(descHTML);
+
 
 // Convert HTML string into a DOM node
 const tempDiv = document.createElement("div");
