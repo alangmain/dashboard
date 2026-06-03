@@ -130,15 +130,25 @@ let feels = "";
 strongs.forEach(s => {
     const label = s.textContent.replace(":", "").trim();
 
-    let value = "";
     let node = s.nextSibling;
+    let value = "";
 
-    // Walk forward until we find a real text node
     while (node) {
+        // Skip whitespace text nodes
         if (node.nodeType === 3 && node.textContent.trim() !== "") {
             value = node.textContent.trim();
             break;
         }
+
+        // Skip <br> and other elements
+        if (node.nodeType === 1 && node.tagName !== "BR") {
+            // If it's an element containing text, extract it
+            if (node.textContent.trim() !== "") {
+                value = node.textContent.trim();
+                break;
+            }
+        }
+
         node = node.nextSibling;
     }
 
