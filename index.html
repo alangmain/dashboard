@@ -104,9 +104,9 @@ function trigger(webhook, value) {
     fetch("https://maker.ifttt.com/trigger/" + webhook + "/with/key/YOUR_IFTTT_KEY?value1=" + value);
 }
 
-/* Load BBC Weather using JSON API */
+/* Load BBC Weather using JSON API + CORS proxy */
 async function loadBBCWeather() {
-    const url = "https://weather-broker-cdn.api.bbci.co.uk/en/observation/2655009";
+    const url = "https://corsproxy.io/?https://weather-broker-cdn.api.bbci.co.uk/en/observation/2655009";
 
     try {
         const res = await fetch(url);
