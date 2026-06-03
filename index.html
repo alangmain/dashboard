@@ -92,7 +92,6 @@ function trigger(webhook, value) {
     fetch("https://maker.ifttt.com/trigger/" + webhook + "/with/key/YOUR_IFTTT_KEY?value1=" + value);
 }
 
-/* BBC WEATHER IN HEADER */
 async function loadBBCWeather() {
     const proxy = "https://corsproxy.io/?";
     const feed = "https://weather-broker-cdn.api.bbci.co.uk/en/observation/rss/2655009";
@@ -104,13 +103,27 @@ async function loadBBCWeather() {
         const parser = new DOMParser();
         const xml = parser.parseFromString(text, "text/xml");
 
-        const item = xml.querySelector("item description").textContent;
+        const descHTML = xml.querySelector("item description").textContent;
 
-        const temp = item.match(/Temperature: ([0-9\-]+)°C/)[1];
-        const desc = item.match(/Weather: ([A-Za-z ]+)/)[1];
+        // Convert HTML string into a DOM node
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = descHTML;
 
-        document.getElementById("bbc-header-temp").innerText = temp + "°C";
-        document.getElementById("bbc-header-desc").innerText = desc;
+        const strongs = tempDiv.querySelectorAll("strong");
+
+        let temp = "";
+        let weather = "";
+
+        strongs.forEach(s => {
+            const label = s.textContent.replace(":", "").trim();
+            const value = s.nextSibling.textContent.trim();
+
+            if (label === "Temperature") temp = value;
+            if (label === "Weather") weather = value;
+        });
+
+        document.getElementById("bbc-header-temp").innerText = temp;
+        document.getElementById("bbc-header-desc").innerText = weather;
 
         const iconMap = {
             "Sunny": "https://icons.wxug.com/i/c/v4/clear.svg",
@@ -122,7 +135,7 @@ async function loadBBCWeather() {
         };
 
         document.getElementById("bbc-header-icon").src =
-            iconMap[desc] || iconMap["Cloudy"];
+            iconMap[weather] || iconMap["Cloudy"];
 
     } catch (e) {
         console.error("BBC Weather Error:", e);
@@ -132,6 +145,7 @@ async function loadBBCWeather() {
 
 window.onload = loadBBCWeather;
 </script>
+
 
 </head>
 <body>
