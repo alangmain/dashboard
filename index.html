@@ -12,89 +12,37 @@
         color: white;
     }
 
+    /* HEADER WITH WEATHER */
     .header {
-        padding: 30px;
-        font-size: 32px;
+        padding: 20px 30px;
+        font-size: 28px;
         font-weight: 600;
-        text-align: center;
         background: #102A45;
         border-bottom: 1px solid #1B3A5A;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-        gap: 20px;
-        padding: 30px;
+    .header-title {
+        font-size: 28px;
+        font-weight: 600;
     }
 
-    .button {
-        padding: 0;
-        border-radius: 20px;
-        overflow: hidden;
+    /* WEATHER TILE IN HEADER */
+    .weather-header-tile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
         background: #1B3A5A;
-        height: 180px;
-        position: relative;
-        transition: 0.15s;
-        user-select: none;
+        padding: 10px 16px;
+        border-radius: 12px;
+        font-size: 14px;
     }
 
-    .button:active {
-        transform: scale(0.95);
-        filter: brightness(1.2);
+    .weather-header-icon {
+        width: 32px;
+        height: 32px;
     }
 
-    .button img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        pointer-events: none;
-    }
-
-    /* BBC Weather tile wrapper */
-    .bbc-weather {
-        width: 100%;
-        height: 180px;
-        border-radius: 20px;
-        overflow: hidden;
-        background: #102A45;
-        border: none;
-    }
-</style>
-
-<script>
-function trigger(webhook, value) {
-    fetch("https://maker.ifttt.com/trigger/" + webhook + "/with/key/YOUR_IFTTT_KEY?value1=" + value);
-}
-</script>
-
-</head>
-<body>
-
-<div class="header">The Mains Control Panel</div>
-
-<div class="grid">
-
-    <!-- BBC Weather Widget for Inverness -->
-    <iframe 
-        class="bbc-weather"
-        src="https://weather-broker-cdn.api.bbci.co.uk/en/observation/rss/2655009">
-    </iframe>
-
-    <!-- Radio buttons -->
-    <div class="button" onclick="trigger('radio_trigger', 10)">
-        <img src="BBC_Radio_2.png">
-    </div>
-
-    <div class="button" onclick="trigger('radio_trigger', 20)">
-        <img src="BFBS_Radio_2.png">
-    </div>
-
-    <div class="button" onclick="trigger('radio_trigger', 30)">
-        <img src="GHR_Premium.png">
-    </div>
-
-</div>
-
-</body>
-</html>
+    .weather-header-temp {
