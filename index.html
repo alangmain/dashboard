@@ -106,7 +106,8 @@ function trigger(webhook, value) {
 
 /* Load BBC Weather using JSON API + CORS proxy */
 async function loadBBCWeather() {
-    const url = "https://corsproxy.io/?https://weather-broker-cdn.api.bbci.co.uk/en/observation/2655009";
+    const url = "https://api.allorigins.win/raw?url=https://weather-broker-cdn.api.bbci.co.uk/en/observation/2655009
+";
 
     try {
         const res = await fetch(url);
