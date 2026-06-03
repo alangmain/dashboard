@@ -20,50 +20,13 @@
         background: #102A45;
         border-bottom: 1px solid #1B3A5A;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
     }
 
     .header-title {
         font-size: 28px;
         font-weight: 600;
-    }
-
-    /* WEATHER TILE */
-    .weather-header-tile {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        background: #1B3A5A;
-        padding: 12px 18px;
-        border-radius: 12px;
-        min-width: 300px;
-    }
-
-    .weather-header-icon {
-        width: 48px;
-        height: 48px;
-    }
-
-    .weather-header-info {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-    }
-
-    .weather-header-temp {
-        font-size: 22px;
-        font-weight: 700;
-    }
-
-    .weather-header-desc {
-        opacity: 0.85;
-        font-size: 14px;
-    }
-
-    .weather-header-small {
-        font-size: 12px;
-        opacity: 0.75;
     }
 
     /* GRID */
@@ -103,53 +66,6 @@
 function trigger(webhook, value) {
     fetch("https://maker.ifttt.com/trigger/" + webhook + "/with/key/YOUR_IFTTT_KEY?value1=" + value);
 }
-
-/* Load BBC Weather using JSON API + CORS proxy */
-async function loadBBCWeather() {
-    const url = "https://api.allorigins.win/raw?url=https://weather-broker-cdn.api.bbci.co.uk/en/observation/2655009
-";
-
-    try {
-        const res = await fetch(url);
-        const data = await res.json();
-
-        const obs = data.observations[0];
-
-        const temp = obs.temperature + "°C";
-        const feels = obs.feelsLikeTemperature + "°C";
-        const weather = obs.weatherTypeText;
-        const wind = obs.windDirection + " " + obs.windSpeed + "mph";
-        const humidity = obs.humidity + "%";
-
-        document.getElementById("bbc-header-temp").innerText = temp;
-        document.getElementById("bbc-header-desc").innerText = weather;
-        document.getElementById("bbc-header-wind").innerText = "Wind: " + wind;
-        document.getElementById("bbc-header-humidity").innerText = "Humidity: " + humidity;
-        document.getElementById("bbc-header-feels").innerText = "Feels like: " + feels;
-
-        const iconMap = {
-            "Sunny": "https://openweathermap.org/img/wn/01d.png",
-            "Clear Sky": "https://openweathermap.org/img/wn/01d.png",
-            "Partly Cloudy": "https://openweathermap.org/img/wn/02d.png",
-            "Cloudy": "https://openweathermap.org/img/wn/03d.png",
-            "Light Rain": "https://openweathermap.org/img/wn/10d.png",
-            "Heavy Rain": "https://openweathermap.org/img/wn/09d.png",
-            "Light Snow": "https://openweathermap.org/img/wn/13d.png",
-            "Heavy Snow": "https://openweathermap.org/img/wn/13d.png",
-            "Fog": "https://openweathermap.org/img/wn/50d.png",
-            "Mist": "https://openweathermap.org/img/wn/50d.png"
-        };
-
-        document.getElementById("bbc-header-icon").src =
-            iconMap[weather] || iconMap["Cloudy"];
-
-    } catch (e) {
-        console.error("BBC Weather Error:", e);
-        document.getElementById("bbc-header-desc").innerText = "Weather unavailable";
-    }
-}
-
-window.onload = loadBBCWeather;
 </script>
 
 </head>
@@ -158,17 +74,6 @@ window.onload = loadBBCWeather;
 <!-- HEADER -->
 <div class="header">
     <div class="header-title">The Mains Control Panel</div>
-
-    <div class="weather-header-tile">
-        <img id="bbc-header-icon" class="weather-header-icon">
-        <div class="weather-header-info">
-            <div id="bbc-header-temp" class="weather-header-temp"></div>
-            <div id="bbc-header-desc" class="weather-header-desc"></div>
-            <div id="bbc-header-wind" class="weather-header-small"></div>
-            <div id="bbc-header-humidity" class="weather-header-small"></div>
-            <div id="bbc-header-feels" class="weather-header-small"></div>
-        </div>
-    </div>
 </div>
 
 <!-- MAIN GRID -->
