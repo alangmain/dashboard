@@ -46,3 +46,125 @@
     }
 
     .weather-header-temp {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .weather-header-desc {
+        opacity: 0.8;
+        font-size: 12px;
+    }
+
+    /* GRID */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 20px;
+        padding: 30px;
+    }
+
+    .button {
+        padding: 0;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #1B3A5A;
+        height: 180px;
+        position: relative;
+        transition: 0.15s;
+        user-select: none;
+    }
+
+    .button:active {
+        transform: scale(0.95);
+        filter: brightness(1.2);
+    }
+
+    .button img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+    }
+</style>
+
+<script>
+function trigger(webhook, value) {
+    fetch("https://maker.ifttt.com/trigger/" + webhook + "/with/key/YOUR_IFTTT_KEY?value1=" + value);
+}
+
+/* BBC WEATHER IN HEADER */
+async function loadBBCWeather() {
+    const proxy = "https://api.allorigins.win/raw?url=";
+    const feed = "https://weather-broker-cdn.api.bbci.co.uk/en/observation/rss/2655009";
+
+    try {
+        const res = await fetch(proxy + encodeURIComponent(feed));
+        const text = await res.text();
+
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, "text/xml");
+
+        const item = xml.querySelector("item description").textContent;
+
+        const temp = item.match(/Temperature: ([0-9\-]+)°C/)[1];
+        const desc = item.match(/Weather: ([A-Za-z ]+)/)[1];
+
+        document.getElementById("bbc-header-temp").innerText = temp + "°C";
+        document.getElementById("bbc-header-desc").innerText = desc;
+
+        const iconMap = {
+            "Sunny": "https://icons.wxug.com/i/c/v4/clear.svg",
+            "Clear": "https://icons.wxug.com/i/c/v4/clear.svg",
+            "Cloudy": "https://icons.wxug.com/i/c/v4/cloudy.svg",
+            "Partly cloudy": "https://icons.wxug.com/i/c/v4/partlycloudy.svg",
+            "Light rain": "https://icons.wxug.com/i/c/v4/chancerain.svg",
+            "Heavy rain": "https://icons.wxug.com/i/c/v4/rain.svg"
+        };
+
+        document.getElementById("bbc-header-icon").src =
+            iconMap[desc] || iconMap["Cloudy"];
+
+    } catch (e) {
+        console.error("BBC Weather Error:", e);
+        document.getElementById("bbc-header-desc").innerText = "Weather unavailable";
+    }
+}
+
+window.onload = loadBBCWeather;
+</script>
+
+</head>
+<body>
+
+<!-- HEADER WITH WEATHER -->
+<div class="header">
+    <div class="header-title">The Mains Control Panel</div>
+
+    <div class="weather-header-tile">
+        <img id="bbc-header-icon" class="weather-header-icon">
+        <div>
+            <div id="bbc-header-temp" class="weather-header-temp"></div>
+            <div id="bbc-header-desc" class="weather-header-desc"></div>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN GRID -->
+<div class="grid">
+
+    <div class="button" onclick="trigger('radio_trigger', 10)">
+        <img src="BBC_Radio_2.png">
+    </div>
+
+    <div class="button" onclick="trigger('radio_trigger', 20)">
+        <img src="BFBS_Radio_2.png">
+    </div>
+
+    <div class="button" onclick="trigger('radio_trigger', 30)">
+        <img src="GHR_Premium.png">
+    </div>
+
+</div>
+
+</body>
+</html>
