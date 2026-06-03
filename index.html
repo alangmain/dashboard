@@ -106,25 +106,38 @@ async function loadBBCWeather() {
 
         const descHTML = xml.querySelector("item description").textContent;
 
-        // Convert HTML string into a DOM node
-        const tempDiv = document.createElement("div");
-        tempDiv.innerHTML = descHTML;
+// Convert HTML string into a DOM node
+const tempDiv = document.createElement("div");
+tempDiv.innerHTML = descHTML;
 
-        const strongs = tempDiv.querySelectorAll("strong");
+const strongs = tempDiv.querySelectorAll("strong");
 
-        let temp = "";
-        let weather = "";
+let temp = "";
+let weather = "";
+let windDir = "";
+let windSpeed = "";
+let humidity = "";
+let feels = "";
 
-        strongs.forEach(s => {
-            const label = s.textContent.replace(":", "").trim();
-            const value = s.nextSibling.textContent.trim();
+strongs.forEach(s => {
+    const label = s.textContent.replace(":", "").trim();
+    const value = s.nextSibling.textContent.trim();
 
-            if (label === "Temperature") temp = value;
-            if (label === "Weather") weather = value;
-        });
+    if (label === "Temperature") temp = value;
+    if (label === "Weather") weather = value;
+    if (label === "Wind Direction") windDir = value;
+    if (label === "Wind Speed") windSpeed = value;
+    if (label === "Humidity") humidity = value;
+    if (label === "Feels Like") feels = value;
+});
 
-        document.getElementById("bbc-header-temp").innerText = temp;
-        document.getElementById("bbc-header-desc").innerText = weather;
+// Update UI
+document.getElementById("bbc-header-temp").innerText = temp;
+document.getElementById("bbc-header-desc").innerText = weather;
+document.getElementById("bbc-header-wind").innerText = `Wind: ${windDir} ${windSpeed}`;
+document.getElementById("bbc-header-humidity").innerText = `Humidity: ${humidity}`;
+document.getElementById("bbc-header-feels").innerText = `Feels like: ${feels}`;
+
 
 const iconMap = {
     "Sunny": "https://openweathermap.org/img/wn/01d.png",
