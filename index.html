@@ -110,63 +110,26 @@ async function loadBBCWeather() {
         const parser = new DOMParser();
         const xml = parser.parseFromString(text, "text/xml");
 
-        let descHTML = xml.querySelector("item description").textContent;
+// Extract the BBC summary text
+let descHTML = xml.querySelector("item description").textContent;
 descHTML = decodeHTML(descHTML);
 
-
-// Convert HTML string into a DOM node
+// Convert to DOM
 const tempDiv = document.createElement("div");
 tempDiv.innerHTML = descHTML;
 
-const strongs = tempDiv.querySelectorAll("strong");
+// Extract the first <p> text
+const p = tempDiv.querySelector("p");
+let summary = p ? p.textContent.trim() : "";
 
-let temp = "";
-let weather = "";
-let windDir = "";
-let windSpeed = "";
-let humidity = "";
-let feels = "";
-
-strongs.forEach(s => {
-    const label = s.textContent.replace(":", "").trim();
-
-    let node = s.nextSibling;
-    let value = "";
-
-    while (node) {
-        // Skip whitespace text nodes
-        if (node.nodeType === 3 && node.textContent.trim() !== "") {
-            value = node.textContent.trim();
-            break;
-        }
-
-        // Skip <br> and other elements
-        if (node.nodeType === 1 && node.tagName !== "BR") {
-            // If it's an element containing text, extract it
-            if (node.textContent.trim() !== "") {
-                value = node.textContent.trim();
-                break;
-            }
-        }
-
-        node = node.nextSibling;
-    }
-
-    if (label === "Temperature") temp = value;
-    if (label === "Weather") weather = value;
-    if (label === "Wind Direction") windDir = value;
-    if (label === "Wind Speed") windSpeed = value;
-    if (label === "Humidity") humidity = value;
-    if (label === "Feels Like") feels = value;
-});
-
+// BBC summary looks like: "Cloudy, 12°C"
+let parts = summary.split(",");
+let weather = parts[0].trim();
+let temp = parts.length > 1 ? parts[1].trim() : "";
 
 // Update UI
 document.getElementById("bbc-header-temp").innerText = temp;
 document.getElementById("bbc-header-desc").innerText = weather;
-document.getElementById("bbc-header-wind").innerText = `Wind: ${windDir} ${windSpeed}`;
-document.getElementById("bbc-header-humidity").innerText = `Humidity: ${humidity}`;
-document.getElementById("bbc-header-feels").innerText = `Feels like: ${feels}`;
 
 
 const iconMap = {
