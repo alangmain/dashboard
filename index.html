@@ -12,21 +12,33 @@
         color: white;
     }
 
-    /* HEADER */
+    /* HEADER WITH WIDE WEATHER WIDGET */
     .header {
         padding: 20px 30px;
-        font-size: 28px;
-        font-weight: 600;
         background: #102A45;
         border-bottom: 1px solid #1B3A5A;
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        min-height: 160px; /* Ensures widget has room to render */
     }
 
     .header-title {
         font-size: 28px;
         font-weight: 600;
+        white-space: nowrap;
+    }
+
+    /* Wide weather widget */
+    .weather-header-widget {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        max-width: 700px;
+        height: 140px; /* Required for widget to initialise */
+        overflow: visible;
     }
 
     /* GRID */
@@ -71,9 +83,24 @@ function trigger(webhook, value) {
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- HEADER WITH WIDE WEATHER -->
 <div class="header">
     <div class="header-title">The Mains Control Panel</div>
+
+    <div class="weather-header-widget">
+        <a class="weatherwidget-io"
+           href="https://forecast7.com/en/57d48n4d22/inverness/"
+           data-label_1="INVERNESS"
+           data-label_2="WEATHER"
+           data-basecolor="#1B3A5A"
+           data-textcolor="#FFFFFF"
+           data-highcolor="#FFCC00"
+           data-lowcolor="#66A3FF"
+           data-suncolor="#FFCC00"
+           data-mooncolor="#A0C4FF">
+           INVERNESS WEATHER
+        </a>
+    </div>
 </div>
 
 <!-- MAIN GRID -->
@@ -88,14 +115,22 @@ function trigger(webhook, value) {
     </div>
 
     <div class="button" onclick="trigger('radio_trigger', 30)">
-        <img src="GHR_Premium.png">
-    </div>
-
-    <div class="button" onclick="trigger('radio_trigger', 40)">
-        <img src="Absolute_Radio.png">
+        <img src="GHR_premium.png">
     </div>
 
 </div>
+
+<!-- WeatherWidget.io script -->
+<script>
+!function(d,s,id){
+    var js,fjs=d.getElementsByTagName(s)[0];
+    if(!d.getElementById(id)){
+        js=d.createElement(s);js.id=id;
+        js.src='https://weatherwidget.io/js/widget.min.js';
+        fjs.parentNode.insertBefore(js,fjs);
+    }
+}(document,'script','weatherwidget-io-js');
+</script>
 
 </body>
 </html>
