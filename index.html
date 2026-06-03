@@ -12,27 +12,40 @@
         color: white;
     }
 
-    /* HEADER WITH WIDE WEATHER WIDGET — FIXED VERSION */
-.header {
-    padding: 20px 30px;
-    background: #102A45;
-    border-bottom: 1px solid #1B3A5A;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;   /* FIX: center vertically */
-    gap: 20px;
-    min-height: 180px;     /* FIX: enough room for widget */
-}
+    /* HEADER WITH WIDE WEATHER WIDGET */
+    .header {
+        padding: 20px 30px;
+        background: #102A45;
+        border-bottom: 1px solid #1B3A5A;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;   /* FIX: stable vertical alignment */
+        gap: 20px;
+        min-height: 160px;
+    }
 
-.weather-header-widget {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    max-width: 700px;
-    overflow: visible;     /* allow iframe to expand */
-    height: auto;          /* FIX: remove forced height */
-}
+    .header-title {
+        font-size: 28px;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    /* Weather widget container */
+    .weather-header-widget {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        max-width: 700px;
+        overflow: visible;
+    }
+
+    /* Wrapper FIX — stabilises iframe height */
+    .weather-wrapper {
+        width: 100%;
+        min-height: 150px;   /* FIX: prevents collapse */
+        display: block;      /* FIX: removes flex behaviour */
+    }
 
     /* GRID */
     .grid {
@@ -76,23 +89,25 @@ function trigger(webhook, value) {
 </head>
 <body>
 
-<!-- HEADER WITH WIDE WEATHER -->
+<!-- HEADER WITH WEATHER WIDGET -->
 <div class="header">
     <div class="header-title">The Mains Control Panel</div>
 
     <div class="weather-header-widget">
-        <a class="weatherwidget-io"
-           href="https://forecast7.com/en/57d48n4d22/inverness/"
-           data-label_1="INVERNESS"
-           data-label_2="WEATHER"
-           data-basecolor="#1B3A5A"
-           data-textcolor="#FFFFFF"
-           data-highcolor="#FFCC00"
-           data-lowcolor="#66A3FF"
-           data-suncolor="#FFCC00"
-           data-mooncolor="#A0C4FF">
-           INVERNESS WEATHER
-        </a>
+        <div class="weather-wrapper">
+            <a class="weatherwidget-io"
+               href="https://forecast7.com/en/57d48n4d22/inverness/"
+               data-label_1="INVERNESS"
+               data-label_2="WEATHER"
+               data-basecolor="#1B3A5A"
+               data-textcolor="#FFFFFF"
+               data-highcolor="#FFCC00"
+               data-lowcolor="#66A3FF"
+               data-suncolor="#FFCC00"
+               data-mooncolor="#A0C4FF">
+               INVERNESS WEATHER
+            </a>
+        </div>
     </div>
 </div>
 
@@ -125,7 +140,6 @@ function trigger(webhook, value) {
         js=d.createElement(s);js.id=id;
         js.src='https://weatherwidget.io/js/widget.min.js';
         fjs.parentNode.insertBefore(js,fjs);
-        
     }
 }(document,'script','weatherwidget-io-js');
 </script>
