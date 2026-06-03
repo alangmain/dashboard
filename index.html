@@ -121,7 +121,19 @@ let feels = "";
 
 strongs.forEach(s => {
     const label = s.textContent.replace(":", "").trim();
-    const value = s.nextSibling.textContent.trim();
+
+    // Find the text node immediately after the <strong> tag
+    let valueNode = null;
+    for (let node of s.parentNode.childNodes) {
+        if (node.nodeType === 3 && node.textContent.trim() !== "") {
+            valueNode = node;
+            break;
+        }
+    }
+
+    if (!valueNode) return;
+
+    const value = valueNode.textContent.trim();
 
     if (label === "Temperature") temp = value;
     if (label === "Weather") weather = value;
@@ -130,6 +142,7 @@ strongs.forEach(s => {
     if (label === "Humidity") humidity = value;
     if (label === "Feels Like") feels = value;
 });
+
 
 // Update UI
 document.getElementById("bbc-header-temp").innerText = temp;
