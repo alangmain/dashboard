@@ -12,34 +12,27 @@
         color: white;
     }
 
-    /* HEADER WITH WIDE WEATHER WIDGET */
-    .header {
-        padding: 20px 30px;
-        background: #102A45;
-        border-bottom: 1px solid #1B3A5A;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 20px;
-        min-height: 160px; /* Ensures widget has room to render */
-    }
+    /* HEADER WITH WIDE WEATHER WIDGET — FIXED VERSION */
+.header {
+    padding: 20px 30px;
+    background: #102A45;
+    border-bottom: 1px solid #1B3A5A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   /* FIX: center vertically */
+    gap: 20px;
+    min-height: 180px;     /* FIX: enough room for widget */
+}
 
-    .header-title {
-        font-size: 28px;
-        font-weight: 600;
-        white-space: nowrap;
-    }
-
-    /* Wide weather widget */
-    .weather-header-widget {
-        flex: 1;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        max-width: 700px;
-        height: 140px; /* Required for widget to initialise */
-        overflow: visible;
-    }
+.weather-header-widget {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    max-width: 700px;
+    overflow: visible;     /* allow iframe to expand */
+    height: auto;          /* FIX: remove forced height */
+}
 
     /* GRID */
     .grid {
