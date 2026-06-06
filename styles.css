@@ -81,34 +81,6 @@ html, body {
     pointer-events: none;
 }
 
-/* NOW PLAYING TILE */
-.now-playing {
-    position: relative;
-}
-
-.np-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 6px;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
-    color: white;
-    font-size: 12px;
-    box-sizing: border-box;
-}
-
-#np-title {
-    font-weight: 600;
-    font-size: 13px;
-    margin-bottom: 2px;
-}
-
-#np-artist {
-    font-size: 11px;
-    opacity: 0.8;
-}
-
 /* FIXED FOOTER GRID */
 .footer-grid {
     position: fixed;
