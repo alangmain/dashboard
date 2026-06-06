@@ -7,9 +7,17 @@
 <link rel="stylesheet" href="styles.css?v=1">
 
 <script>
-/* Trigger IFTTT */
-function trigger(webhook, value) {
-    fetch("https://maker.ifttt.com/trigger/" + webhook + "/with/key/dJ8uFM2YkJGcZimHqWztEQ?value1=" + value);
+    const triggers = {
+    radio2: "https://www.virtualsmarthome.xyz/url_routine_trigger/activate.php?trigger=f31fd73d-9202-465c-bd71-14e4b5bd87d9&token=6719e404-5060-48ca-8ac0-06048ebd2343&response=html",
+    ghr: "https://www.virtualsmarthome.xyz/url_routine_trigger/activate.php?trigger=01c6d8b3-e04a-46f2-88f1-85173964d25a&token=03f00dbf-d70e-4cf9-8cb9-500b900499ec&response=html",
+    bfbs: "https://www.virtualsmarthome.xyz/url_routine_trigger/activate.php?trigger=d2e116c1-a6d0-48b5-aa01-5aab22b41f3a&token=a2d676c3-cd9c-42f2-ba86-43a4678c7a4f&response=html",
+    absolute: "https://www.virtualsmarthome.xyz/url_routine_trigger/activate.php?trigger=b0b87075-6bed-4923-9551-d8e4f380fd0d&token=d58755e8-9cb9-49c5-b809-ee55b94a0a5f&response=html"
+};
+
+    function trigger(station) {
+    fetch(triggers[station])
+        .then(() => console.log(`${station} triggered`))
+        .catch(err => console.error(err));
 }
 </script>
 
