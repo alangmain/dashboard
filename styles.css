@@ -49,7 +49,10 @@ html, body {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 15px;
     padding: 20px;
-    height: calc(100vh - 120px - 120px); /* header + footer */
+
+    /* NEW: height adjusted so footer always fits */
+    height: calc(100vh - 120px - 130px); /* header + footer + safe-area */
+
     overflow-y: auto;
     box-sizing: border-box;
 }
@@ -78,14 +81,23 @@ html, body {
     pointer-events: none;
 }
 
-/* FOOTER GRID */
+/* FIXED FOOTER GRID */
 .footer-grid {
+    position: fixed;
+    bottom: env(safe-area-inset-bottom);
+    left: 0;
+    width: 100%;
+
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* MATCH MAIN GRID */
     gap: 15px;
+
     padding: 0 20px 20px 20px;
     background: #0A1A2F;
     box-sizing: border-box;
+
+    /* NEW: explicit height so grid above can calculate correctly */
+    height: 110px;
 }
 
 .footer-button {
@@ -93,7 +105,7 @@ html, body {
     border-radius: 18px;
     overflow: hidden;
     background: #1B3A5A;
-    height: 90px;
+    height: 90px; /* SAME AS MAIN BUTTONS */
     transition: 0.15s;
     user-select: none;
     cursor: pointer;
