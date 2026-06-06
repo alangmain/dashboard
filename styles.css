@@ -42,7 +42,7 @@ body {
 /* MAIN GRID */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
     gap: 20px;
     padding: 30px;
 }
@@ -52,7 +52,7 @@ body {
     border-radius: 20px;
     overflow: hidden;
     background: #1B3A5A;
-    height: 180px;
+    height: 110px;
     position: relative;
     transition: 0.15s;
     user-select: none;
