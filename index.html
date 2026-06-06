@@ -15,10 +15,10 @@
 };
 
     function trigger(station) {
-    fetch(triggers[station])
-        .then(() => console.log(`${station} triggered`))
-        .catch(err => console.error(err));
+    const url = triggers[station] + "&t=" + Date.now();
+    fetch(url);
 }
+
 </script>
 
 </head>
