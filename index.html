@@ -24,7 +24,7 @@ function trigger(station) {
 
 /* NOW PLAYING POLL */
 function updateNowPlaying() {
-    fetch("http://192.168.0.50/httpapi.asp?command=getPlayerStatus")
+    fetch("https://api.allorigins.win/raw?url=http://192.168.0.50/httpapi.asp?command=getPlayerStatus")
         .then(response => response.json())
         .then(data => {
             const title = data.title || "Nothing playing";
