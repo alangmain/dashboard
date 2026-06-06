@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Control Panel</title>
 
-<link rel="stylesheet" href="styles.css?v=4">
+<link rel="stylesheet" href="styles.css?v=5">
 
 <script>
 /* RADIO TRIGGERS */
@@ -21,29 +21,6 @@ function trigger(station) {
     const url = triggers[station] + "&t=" + Date.now();
     fetch(url);
 }
-
-/* NOW PLAYING POLL */
-function updateNowPlaying() {
-    fetch("https://api.allorigins.win/raw?url=http://192.168.0.50/httpapi.asp?command=getPlayerStatus")
-        .then(response => response.json())
-        .then(data => {
-            const title = data.title || "Nothing playing";
-            const artist = data.artist || "";
-            const art = data.albumArtUrl || "placeholder.jpg";
-
-            document.getElementById("np-title").textContent = title;
-            document.getElementById("np-artist").textContent = artist;
-            document.getElementById("np-art").src = art;
-        })
-        .catch(() => {
-            document.getElementById("np-title").textContent = "Offline";
-            document.getElementById("np-artist").textContent = "";
-            document.getElementById("np-art").src = "placeholder.jpg";
-        });
-}
-
-setInterval(updateNowPlaying, 3000);
-window.onload = updateNowPlaying;
 </script>
 
 </head>
@@ -74,15 +51,6 @@ window.onload = updateNowPlaying;
 
 <!-- MAIN GRID -->
 <div class="grid">
-
-    <!-- NOW PLAYING TILE -->
-    <div class="button now-playing">
-        <img id="np-art" src="placeholder.jpg">
-        <div class="np-overlay">
-            <div id="np-title">Loading…</div>
-            <div id="np-artist"></div>
-        </div>
-    </div>
 
     <div class="button" onclick="trigger('radio2')">
         <img src="BBC_Radio_2.png">
