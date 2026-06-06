@@ -81,7 +81,7 @@ html, body {
 /* FOOTER GRID */
 .footer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 15px;
     padding: 0 20px 20px 20px;
     background: #0A1A2F;
